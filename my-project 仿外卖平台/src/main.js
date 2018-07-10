@@ -24,5 +24,8 @@ const router = new VueRouter({
 // 从而让整个应用都有路由功能
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
+  data: {
+    eventHub: new Vue()
+  }
 }).$mount('#app')

@@ -4,7 +4,7 @@
       <v-header :seller="seller"></v-header>
     </div>
     <div class="tab border-1px">
-      <div class="tab-item"><router-link to='/goods' tag='li' > 商品</router-link></div>
+      <div class="tab-item"><router-link to='/goods' tag='li'> 商品</router-link></div>
       <div class="tab-item"><router-link to='/ratings' tag='li' > 评论</router-link></div>
       <div class="tab-item"><router-link to='/sellers' tag='li' > 商家</router-link></div>
     </div>

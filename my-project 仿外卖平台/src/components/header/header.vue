@@ -84,6 +84,7 @@
     methods: {
       showDetail() {
         this.detailShow = true
+        console.log(2)
       },
       closeDetial() {
         this.detailShow = false
@@ -106,7 +107,8 @@
 @import "../../common/stylus/mixin.styl"
 // @import '../../commom/stylus/icon.styl'
 .header
-  background-color:#999
+  position relative
+  background-color: rgba(7,17,27,0.5)
   color:#fff 
   .content-wrapper
     position relative
