@@ -16,7 +16,7 @@
         <li v-for="item in goods" :key="item.id" class="food-list food-list-hook">
           <h1 class="title">{{item.name}}</h1>
           <ul> 
-            <li v-for="food in item.foods" :key="food.id" class="food-item border-1px()">
+            <li @touchstart="startSelectFood(food,$event)" @touchend.stop.prevent="stopSelectFood(food,$event)" v-for="food in item.foods" :key="food.id" class="food-item border-1px()">
               <div class="icon">
                 <img :src="food.icon" width="57px" height="57px">
               </div>
@@ -56,6 +56,7 @@
       <div class="real-price">￥{{seller.minPrice}}起送</div>
     </div>
   </div> -->
+  <food :food="selectedFood" ref="food"></food>  
 </div>
 </template>
 <!-- eslint-disable  -->
@@ -126,10 +127,12 @@
       margin-right 10px
     .content 
       flex 1
+      font-weight 700
       .name
         margin 2px 0 8px 10px 
         color rgb(7,17,27)
         font-size 14px
+        font-weight 700
         line-height 14px
       .desc 
         margin-left 10px
@@ -168,12 +171,14 @@
   import shopcar from '../shopcar/shopcar.vue'
   import cartcontrol from '../cartcontrol/cartcontrol.vue' 
   import Vue from 'vue'
+  import food from '../food/food.vue'
 const ERR_OK = 0
 export default {
   data() {
     return {
       goods : [],
       slectFoods: {},
+      selectedFood: {},
       listHeight: [], //用来储存foods区域的各个区块的高度(clientHeight)
       scrollY: 0,//用来存储foods区域的滚动的Y坐标
       seller: {},
@@ -207,16 +212,6 @@ export default {
     })
   },
   methods: {
-  //   cartAdd(el) {
-  //     // dom元素更新后执行， 因此此处能正确打印出更改之后的值；
-  // 　  this.$nextTick(() => {
-  //       // 调用shopcart组件的drop()函数
-        
-  //       // this.$refs.shopcar.alert(555)
-  //       this.$refs['shopcar'].drop(el)
-  // // 　    this.$refs['shopcar'].drop(el)　
-  //     })
-  //   },
     _initSCroll() {
       this.meunScroll = new BScroll(this.$refs.menuWrapper, { click: true}) //阻止默认，允许点击
       this.foodsScroll = new BScroll(this.$refs.foodsWrapper, { click: true, tap: true, probeType: 3}) //BScroll滚动时，能实时告诉我们滚动的位置，类似探针的效果
@@ -225,13 +220,24 @@ export default {
         this.scrollY = Math.abs(Math.round(pos.y)); //取正值
       })
     },
-    selectFood(food, event){
-      if (!event._constructed) {//忽略掉BScroll的事件
-        return
-      }
-        this.selectedFood = food; //写入当前选择的food
-        this.$refs.food.show(); //显示当前选择的food的详情页
+    startSelectFood (food,$event) {
+      this.startY = $event.touches[0].pageY
     },
+    stopSelectFood (food,$event) {
+      const moving = Math.abs($event.changedTouches[0].pageY - this.startY)
+      if (moving > 20) return
+      this.startY = 0
+      console.log('click')
+      this.selectedFood = food; //写入当前选择的food
+      this.$refs.food.show(); //显示当前选择的food的详情页调用food。vue子组件的方法            
+    },
+    // selectFood(food, event){
+    //   if (!event._constructed) {//忽略掉BScroll的事件
+    //     return
+    //   }
+    //     this.selectedFood = food; //写入当前选择的food
+    //     this.$refs.food.show(); //显示当前选择的food的详情页 调用food。vue子组件的方法
+    // },
     selectMenu(index, event){
         if (!event._constructed) { //忽略掉BScroll的事件
           return
@@ -281,7 +287,8 @@ export default {
     
     components: {
         shopcar,
-        cartcontrol
+        cartcontrol,
+        food
     }
   
 }

@@ -9,7 +9,7 @@
       <div class="tab-item"><router-link to='/sellers' tag='li' > 商家</router-link></div>
     </div>
     <div class="content">
-      <router-view></router-view>
+      <router-view :seller="seller"></router-view>
     </div>
   </div>
 </template>
