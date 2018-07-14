@@ -12,10 +12,10 @@ Vue.use(VuereSource)
 // define('route',['Vue','VueRouter','goods','sellers','ratings'],function(Vue,VueRouter,goods,sellers,ratings){
 Vue.use(VueRouter)
 const routes = [
-  {path: '/', redirect: '/goods'},
-  { path: '/goods', component: goods },
+  {path: '/goods', component: goods},
   {path: '/sellers', component: sellers},
-  {path: '/ratings', component: ratings}
+  {path: '/ratings', component: ratings},
+  {path: '/', redirect: '/goods'}
 ]
 
 const router = new VueRouter({
@@ -31,5 +31,9 @@ new Vue({
   render: h => h(App),
   data: {
     eventHub: new Vue()
-  }
+  },
+  components: {
+    App,
+    ratings
+  },
 }).$mount('#app')

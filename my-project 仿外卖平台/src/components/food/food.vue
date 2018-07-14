@@ -120,7 +120,7 @@
 
     },
     created() {
-        // var that = this;
+        
         this.$root.eventHub.$on('changeData', (type) => {
           this.selectType = type
           this.$nextTick(() => { // 动态更新 因为改变数据，vue的dom更新是异步的，在修改数据之后因立即使用$nextTick

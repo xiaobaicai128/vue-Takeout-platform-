@@ -7,7 +7,7 @@
     </div>
     <div class="switch" @click="toogleContent" :class="{'active':tempOnlyContent}">
       <span class="icon-check_circle"></span>
-      <span>只看有内容的评价</span>
+      <span >只看有内容的评价</span>
     </div>
   </div>
 </template>
@@ -114,6 +114,8 @@
       display inline-block
       padding  12px 18px
       line-height 24px
+      width 100%
+      font-size 12px
       border-bottom 1px solid rgba(7,17,27,0.1)
       color rgb(147,153,159)
       // font-size 0px
