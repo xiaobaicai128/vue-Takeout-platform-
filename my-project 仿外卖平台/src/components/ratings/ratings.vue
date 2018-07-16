@@ -1,6 +1,6 @@
 <template>
   <div class="ratings" ref="ratings">
-		<div class="rating-content">
+    <div class="rating-content">
       <div class="overview">
         <div class="overview-left">
           <h1 class="score">{{seller.score}}</h1>
@@ -41,7 +41,7 @@
               <p class="text">{{rating.text}}</p>
               <div class="recommend" v-show="rating.recommend && rating.recommend.length">
                 <span class="icon-thumb_up"></span>
-                <span v-for="item in rating.recommend" class="item">{{item}}</span>
+                <span v-for="item in rating.recommend" :key="item.id" class="item">{{item}}</span>
               </div>
               <div class="time">{{rating.rateTime | formatDate}}</div>
             </div>
@@ -191,7 +191,6 @@
 </style>
 
 <script>
-  import Vue from 'vue'
   import star from '../star/star.vue'
   import split from '../split/split.vue'
   import ratingselect from '../ratingselect/ratingselect.vue'
@@ -213,19 +212,18 @@ export default {
   created() {
     this.$http.get('/api/ratings').then((res) => {
       res = res.body
-      if(res.errno === ERR_OK) {
+      if (res.errno === ERR_OK) {
         this.ratings = res.data
         this.$nextTick(() => {
           this.scroll = new BScroll(this.$refs.ratings, {click: true})
         }) 
       }
-    }),
+    })
     this.$root.eventHub.$on('changeData', (type) => {
       this.selectType = type
       this.$nextTick(() => { // 动态更新 因为改变数据，vue的dom更新是异步的，在修改数据之后因立即使用$nextTick
         this.scroll.refresh()
       })
-
     })
     this.$root.eventHub.$on('changeContent', (tempOnlyContent) => {
       this.onlyContent = tempOnlyContent

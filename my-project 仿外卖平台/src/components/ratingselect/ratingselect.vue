@@ -53,12 +53,12 @@
       // 这个组件中是为了要显示他们的数量
       positives() {
         return this.ratings.filter((rating) => {
-          return rating.rateType === POSITIVE;
+          return rating.rateType === POSITIVE
         })
       },
       negatives() {
         return this.ratings.filter((rating) => {
-          return rating.rateType === NEGATIVE;
+          return rating.rateType === NEGATIVE
         })
       }
     },
@@ -71,12 +71,12 @@
       select(type, event) {
         this.tempType = type
         // this.$emit('changeData',type)
-        this.$root.eventHub.$emit('changeData',type)
+        this.$root.eventHub.$emit('changeData', type)
         // console.log(this.selectType)
       },
       toogleContent() {
         this.tempOnlyContent = !this.tempOnlyContent
-        this.$root.eventHub.$emit('changeContent',this.tempOnlyContent)
+        this.$root.eventHub.$emit('changeContent', this.tempOnlyContent)
       }
     }
   }

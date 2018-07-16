@@ -63,8 +63,8 @@
   import split from '../split/split.vue'
   import ratingselect from '../ratingselect/ratingselect.vue'
   import {formatDate} from '../../common/js/date.js'
-  const POSITIVE = 0
-  const NEGATIVE = 1
+  // const POSITIVE = 0
+  // const NEGATIVE = 1
   const ALL = 2 
   export default {
     data() {
@@ -119,14 +119,12 @@
       }
 
     },
-    created() {
-        
+    created() {       
         this.$root.eventHub.$on('changeData', (type) => {
           this.selectType = type
           this.$nextTick(() => { // 动态更新 因为改变数据，vue的dom更新是异步的，在修改数据之后因立即使用$nextTick
             this.scroll.refresh()
           })
-
         })
         this.$root.eventHub.$on('changeContent', (tempOnlyContent) => {
           this.onlyContent = tempOnlyContent

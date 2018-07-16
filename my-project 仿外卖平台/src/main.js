@@ -12,10 +12,33 @@ Vue.use(VuereSource)
 // define('route',['Vue','VueRouter','goods','sellers','ratings'],function(Vue,VueRouter,goods,sellers,ratings){
 Vue.use(VueRouter)
 const routes = [
-  {path: '/goods', component: goods},
-  {path: '/sellers', component: sellers},
-  {path: '/ratings', component: ratings},
-  {path: '/', redirect: '/goods'}
+  {
+    path: '/goods', 
+    component: goods,
+    meta: {
+      keepAlive: true // 需要缓存
+    }
+  },
+  {
+    path: '/sellers', 
+    component: sellers,
+    meta: {
+      keepAlive: true // 需要缓存
+    }
+  },
+  {
+    path: '/ratings', 
+    component: ratings,
+    meta: {
+      keepAlive: true // 需要缓存
+    }
+  },
+  {path: '/', 
+  redirect: '/goods',
+  meta: {
+      keepAlive: true // 需要缓存
+    }
+  }
 ]
 
 const router = new VueRouter({
@@ -35,5 +58,5 @@ new Vue({
   components: {
     App,
     ratings
-  },
+  }
 }).$mount('#app')
